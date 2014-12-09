@@ -73,7 +73,7 @@ public class TriHeapSort {
 	 * Le tri ce fait sur la troisième colonne 
 	 * @param args
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		int[][] a1 = { {4, 1, 3}, {2, 16, 9}, {10, 14, 8}};
 		sort(a1);
 		for (int i = 0; i < a1.length; i++) {
@@ -82,5 +82,5 @@ public class TriHeapSort {
 			System.out.print(a1[i][j] + " ");
 			}
 		}
-	}
+	}*/
 }
