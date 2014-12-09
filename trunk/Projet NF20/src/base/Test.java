@@ -3,7 +3,7 @@ package base;
 public class Test {
 
 	  public static void main(String[] args) {
-          Tree a = new Tree();
+          Graph a = new Graph();
           
           // Test lecture de fichiers invalides
           a.loadFile("a");
@@ -20,7 +20,7 @@ public class Test {
           
           // Récupération de le l'attribut directed (si l'arbre est orienté)
           System.out.println();
-         // a.supplyDirected();
+          a.supplyDirected();
           System.out.println("Graphe (a) orienté ? " +a.getDirected());
           
           // Récupération du nombre de noeuds de l'arbre
