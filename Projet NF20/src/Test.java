@@ -7,7 +7,7 @@
 public class Test {
 	
 	public static void main(String[] args) {
-		Tree a = new Tree();
+		Graph a = new Graph();
 		
 		// Test lecture de fichiers invalides
 		a.loadFile("a");

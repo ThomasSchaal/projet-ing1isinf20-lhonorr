@@ -11,7 +11,7 @@ import java.util.List;
  *
  */
 
-public class Tree {
+public class Graph {
 
 	/**
 	 *  Dictionnaire des prénoms trouvés dans le fichier CSV
@@ -20,7 +20,7 @@ public class Tree {
 	private boolean directed;
 	private int nb_nodes = 0;
 	private int nb_edges = 0;
-	private String[][] matrice;
+	private int[][] matrice;
 
 	/**
 	 * Methode qui va charger un fichier passé en paramètre et alimenter la structure readfile
@@ -60,7 +60,8 @@ public class Tree {
 				System.out.println("Erreur IO");
 			}
 
-			// Si la lecture s'est correctement déroulée, on retourne vrai
+			// Si la lecture s'est correctement déroulée, on instancie la matrice et on retourne vrai
+			matrice = new int[readfile.size()-3][3];
 			return true;
 		}
 
@@ -118,7 +119,11 @@ public class Tree {
 	 * Alimente la matrice de l'arbre
 	 */
 	public void supplyMatrice() {
-		// To Do
+		for(int i=4; i<readfile.size()-3; i++) {
+			for(int j=0; j<3; j++) {
+				matrice[i][j] = Integer.parseInt(readfile.get(i).split(("\\s+"))[j]);
+			}
+		}
 	}
 
 	// Getters des attributs
@@ -134,7 +139,7 @@ public class Tree {
 	public int getNbEdges() {
 		return nb_edges;
 	}
-	public String[][] getMatrice() {
+	public int[][] getMatrice() {
 		return matrice;
 	}
 }
