@@ -8,14 +8,9 @@ public class Test {
 	
 	public static void main(String[] args) {
 		Graph a = new Graph();
-		
-		// Test lecture de fichiers invalides
-		a.loadFile("a");
-		a.loadFile("");
-		System.out.println();
 
 		// Test lecture fichier valide (n'oubliez pas de le changer et mettre un chemin valide !)
-		a.loadFile("C:/Users/Robin/Desktop/Projet NF20/files/inst_v100.dat");
+		a.loadFile("C:/Users/Robin/Desktop/Projet NF20/files/inst_v1.txt");
 		System.out.println("Lecture du fichier : ");
 		for(String s : a.getReadfile()) {
 			System.out.println(s);

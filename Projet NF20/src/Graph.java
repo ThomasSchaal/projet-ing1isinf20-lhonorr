@@ -18,7 +18,7 @@ public class Graph {
 	 */
 	private List<String> readfile = new ArrayList<String>();
 	private boolean directed;
-	private int nb_nodes = 0;
+	private static int nb_nodes = 0;
 	private int nb_edges = 0;
 	private int[][] matrice;
 
@@ -61,7 +61,7 @@ public class Graph {
 			}
 
 			// Si la lecture s'est correctement déroulée, on instancie la matrice et on retourne vrai
-			matrice = new int[readfile.size()-3][3];
+			matrice = new int[readfile.size()-6][3];
 			return true;
 		}
 
@@ -119,9 +119,9 @@ public class Graph {
 	 * Alimente la matrice de l'arbre
 	 */
 	public void supplyMatrice() {
-		for(int i=4; i<readfile.size()-3; i++) {
+		for(int i=4; i<readfile.size()-2; i++) {
 			for(int j=0; j<3; j++) {
-				matrice[i][j] = Integer.parseInt(readfile.get(i).split(("\\s+"))[j]);
+				matrice[i-4][j] = Integer.parseInt(readfile.get(i).split(("\\s+"))[j]);
 			}
 		}
 	}
@@ -133,7 +133,7 @@ public class Graph {
 	public boolean getDirected() {
 		return directed;
 	}	
-	public int getNbNodes() {
+	public static int getNbNodes() {
 		return nb_nodes;
 	}
 	public int getNbEdges() {
