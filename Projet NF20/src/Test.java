@@ -32,6 +32,10 @@ public class Test {
 		// Alimentation de la matrice de l'arbre
 		a.supplyMatrice();
 		
+		for(Edge e : a.getMatriceTest()) {
+			System.out.println(e.toString());
+		}
+		
 	}
 
 }

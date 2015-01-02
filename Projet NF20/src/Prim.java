@@ -11,7 +11,7 @@ import java.util.Set;
 
 public class Prim {
 
-	public static int do_Prim(int[][] tab) {
+	public static Result do_Prim(int[][] tab) {
 		Set<Integer> dif_nodes = new HashSet<Integer>();
 		List<Integer> checked_node = new LinkedList<Integer>();
 		boolean cycle_found = true;
@@ -20,9 +20,10 @@ public class Prim {
 		int[] minimal_node = null;
 		int total_weight = 0;
 
-
+		//System.out.println("Nb nodes : "+Graph.getNbNodes());
 		// Tant que le nombre de noeuds de notre graphe résultat n'est pas identique au nombre de noeuds du graphe initial
 		while(totalNbNodes(dif_nodes) != Graph.getNbNodes() ) {
+			//System.out.println("Tour : "+iterator);
 
 			//System.out.println("Iterator : "+ iterator);
 			//System.out.println("Total de Noeuds du tableau : " + totalNbNodes(dif_nodes));
@@ -67,8 +68,11 @@ public class Prim {
 			//System.out.println();
 			iterator++;
 			total_weight += minimal_node[2];
+			//System.out.println("Nombre de sommets : "+dif_nodes.size());
+			//System.out.println(dif_nodes);
 		}
-		return total_weight;
+		System.out.println("Nombre de sommets : "+dif_nodes.size());
+		return new Result(total_weight, result);
 	}
 
 	/**
@@ -78,7 +82,6 @@ public class Prim {
 	 * @return
 	 */
 	public static int[] look_neighbourtabList(int[][] tab, List<Integer> checked_node) {
-
 		int minimum_weight = -1;
 		int index_i_minimal = 0;
 		int[] minimum = new int[4];

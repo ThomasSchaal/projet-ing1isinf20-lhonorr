@@ -46,6 +46,7 @@ public class Kruskal {
 		while(it.hasNext()){
 			System.out.println(it.next());
 		}
+		
 		return cout;
 	}
 	

@@ -19,7 +19,8 @@ public class Test_Kruskal {
 		// Test lecture fichier valide (n'oubliez pas de le changer et mettre un
 		// chemin valide !)
 		// a.loadFile("C:/Users/Robin/Desktop/Projet NF20/files/inst_v100.dat");
-		a.loadFile("H:/ISI1/NF20/Projet/inst_v100.dat");
+		//a.loadFile("H:/ISI1/NF20/Projet/inst_v100.dat");
+		a.loadFile("C:/Users/Robin/Desktop/Projet NF20/files/inst_v10.txt"); // Chemin de Robin
 		System.out.println("Lecture du fichier : ");
 		for (String s : a.getReadfile()) {
 			System.out.println(s);

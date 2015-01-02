@@ -2,7 +2,9 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.ProcessBuilder.Redirect;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -21,6 +23,7 @@ public class Graph {
 	private static int nb_nodes = 0;
 	private int nb_edges = 0;
 	private int[][] matrice;
+	private List<Edge> matrice_test = new LinkedList<>();
 
 	/**
 	 * Methode qui va charger un fichier passé en paramètre et alimenter la structure readfile
@@ -123,6 +126,8 @@ public class Graph {
 			for(int j=0; j<3; j++) {
 				matrice[i-4][j] = Integer.parseInt(readfile.get(i).split(("\\s+"))[j]);
 			}
+			String[] tmp = readfile.get(i).split(("\\s+"));
+			matrice_test.add(new Edge(Integer.parseInt(tmp[0]),Integer.parseInt(tmp[1]) ,Integer.parseInt(tmp[2])));
 		}
 	}
 
@@ -141,5 +146,8 @@ public class Graph {
 	}
 	public int[][] getMatrice() {
 		return matrice;
+	}
+	public List<Edge> getMatriceTest() {
+		return matrice_test;
 	}
 }
