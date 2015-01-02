@@ -10,6 +10,11 @@ import java.util.Set;
  */
 public class CycleElimination {
 
+	/**
+	 * Effectue l'algorithme de l'élimination de cycle
+	 * @param tab
+	 * @return
+	 */
 	public static Result_list do_CycleElimination(List<Edge> tab) {
 		int total_weight = 0;
 		Set<Integer> dif_nodes = new HashSet<Integer>();
@@ -125,7 +130,6 @@ public class CycleElimination {
 
 			//System.out.println("Dif node.size : "+dif_nodes.size());
 			//System.out.println("Nb nodes graphes : "+Graph.getNbNodes());
-			System.out.println("Tab.size : "+ tab.size());
 			if(dif_nodes.size() == Graph.getNbNodes() && tab.size() == 1)
 				finished = true;
 		}
@@ -235,6 +239,14 @@ public class CycleElimination {
 	}
 
 
+	/**
+	 * Verifie les chemins menant à l'arête formant un cycle en retournant l'arête la plus lourde
+	 * @param result
+	 * @param minimal_node
+	 * @param dep_node
+	 * @param dest_node
+	 * @return
+	 */
 	public static Result_weight checkWeightCycle(List<Edge> result, int[] minimal_node, int dep_node, int dest_node) {
 		int[] edge_max = new int[4];
 		int[] edge_read = new int[4];
@@ -261,7 +273,7 @@ public class CycleElimination {
 			//System.out.println("Noeud de départ : "+checked_node);
 
 			for(int k = 0; k < result_tmp.size() -1; k++) {
-				//	System.out.println("Tour : "+ k);
+			//	System.out.println("Tour : "+ k);
 
 				// On stocke l'arête sur laquelle on se trouve pour verifier si l'on est à la fin du chemin
 				edge_read[0] = result_tmp.get(k).getSommet1();
@@ -270,26 +282,50 @@ public class CycleElimination {
 				edge_read[3] = k;
 
 				//System.out.println("On lit l'arête : "+result_tmp.get(k).toString());
-				//System.out.println("Noeud checké : "+checked_node);
+				//System.out.println("Max weight : " + max_weight);
 				// Si le noeud est présent dans une arête du chemin et que le poids maximal n'est pas initialisé
-				if( (result_tmp.get(k).getSommet1() == checked_node || result_tmp.get(k).getSommet2() == checked_node) && max_weight == -1) {
+				if( (result_tmp.get(k).getSommet1() == checked_node || result_tmp.get(k).getSommet2() == checked_node) && max_weight == -1
+						&& result_tmp.get(k).getSommet1() == dest_node || result_tmp.get(k).getSommet2() == dest_node
+						|| result_tmp.get(k).getSommet1() == dep_node || result_tmp.get(k).getSommet2() == dep_node
+						&& isLinked(minimal_node, result_tmp.get(k), result_tmp)) {
 					edge_max[0] = result_tmp.get(k).getSommet1();
 					edge_max[1] = result_tmp.get(k).getSommet2();
 					edge_max[2] = result_tmp.get(k).getPoids();
 					edge_max[3] = k;
+					max_weight = edge_max[2];
+
+					if(max_weight_total == -1) {
+						max_weight_node[0] = edge_max[0];
+						max_weight_node[1] = edge_max[1];
+						max_weight_node[2] = edge_max[2];
+						max_weight_node[3] = edge_max[3];
+						max_weight_total = max_weight;
+					}
+
+					else if(max_weight > max_weight_total) {
+						max_weight_total = max_weight;
+						max_weight_node[0] = edge_max[0];
+						max_weight_node[1] = edge_max[1];
+						max_weight_node[2] = edge_max[2];
+						max_weight_node[3] = edge_max[3];
+					}
+
 					//System.out.println("Init : "+k);
 					//System.out.println("1ère Arête maximale : "+ edge_max[0] +"\t"+edge_max[1]+"\t"+edge_max[2]);
-					break;
+					//break;
 				}
 
 				// Si le noeud est présent dans une arête du chemin et que le poids maximal est initialisé
-				else if( (result_tmp.get(k).getSommet1() == checked_node || result_tmp.get(k).getSommet2() == checked_node) && result_tmp.get(k).getPoids() > max_weight) {
+				else if( (result_tmp.get(k).getSommet1() == checked_node || result_tmp.get(k).getSommet2() == checked_node) && result_tmp.get(k).getPoids() > max_weight
+						&& result_tmp.get(k).getSommet1() == dest_node || result_tmp.get(k).getSommet2() == dest_node
+						|| result_tmp.get(k).getSommet1() == dep_node || result_tmp.get(k).getSommet2() == dep_node) {
 					edge_max[0] = result_tmp.get(k).getSommet1();
 					edge_max[1] = result_tmp.get(k).getSommet2();
 					edge_max[2] = result_tmp.get(k).getPoids();
 					edge_max[3] = k;
+					max_weight = edge_max[2];
 					//System.out.println("Nouvelle arête max trouvée : "+edge_max[0] +"\t"+edge_max[1]+"\t"+edge_max[2]);
-					break;
+					//break;
 				}
 
 
@@ -299,7 +335,7 @@ public class CycleElimination {
 					checked_node = edge_read[1];
 				else
 					checked_node = edge_read[0];
-				dep_node = checked_node;
+				//dep_node = checked_node;
 
 				//System.out.println("Noeud à check : "+checked_node);
 
@@ -313,14 +349,17 @@ public class CycleElimination {
 					edge_max[3] = k;
 				}
 
+				//max_weight = edge_max[2];
+				//max_weight_total = max_weight;
+
 			}
 
+			//System.out.println("Max weight 2 : "+max_weight);
 
-
-			max_weight = edge_max[2];
+			//max_weight = edge_max[2];
 			//System.out.println("Arête maximale : "+ edge_max[0] +"\t"+edge_max[1]+"\t"+edge_max[2] + "\t"+ edge_max[3]);
 			//System.out.println("Arête trouvée : "+ edge_read[0] +"\t"+edge_read[1]+"\t"+edge_read[2]);
-			//max_weight = edge_max[2];
+			max_weight = edge_max[2];
 
 			//System.out.println("Arête maximale : "+ edge_max[0] +"\t"+edge_max[1]+"\t"+edge_max[2]);
 			//System.out.println("Arête trouvée : "+ edge_read[0] +"\t"+edge_read[1]+"\t"+edge_read[2]);
@@ -346,10 +385,15 @@ public class CycleElimination {
 				max_weight_node[3] = edge_max[3];
 			}
 
+
 			//System.out.println("Poids de l'arête maximale : "+max_weight_node[2]);
 
 			// Si l'arête trouvée contient le noeud de destination, on sort de la boucle
-			if(edge_read[0] == dest_node || edge_read[1] == dest_node) {
+			if(edge_read[0] == dest_node || edge_read[1] == dest_node 
+					&& max_weight_node[0] == dest_node || max_weight_node[1] == dest_node 
+					|| max_weight_node[0] == dep_node || max_weight_node[1] == dep_node
+					|| max_weight_node[0] == dest_node && max_weight_node[1] == dep_node 
+					|| max_weight_node[0] == dep_node && max_weight_node[1] == dest_node ) {
 				//System.out.println("Chemin terminé !");
 				cycle_finished = true;
 			}
@@ -420,5 +464,33 @@ public class CycleElimination {
 			total_weight += e.getPoids();
 		return total_weight;
 	}
+	
+	
+	/**
+	 * Verifie si une arête est liée à une autre en formant un cycle
+	 * @param edge
+	 * @param tested_edge
+	 * @param result
+	 * @return
+	 */
+	public static boolean isLinked(int[] edge, Edge tested_edge, List<Edge> result) {
+		Set<Integer> dif_nodes = new HashSet<Integer>();
+		dif_nodes.add(tested_edge.getSommet1());
+		dif_nodes.add(tested_edge.getSommet2());
+		
+		for(Edge e : result) {
+			if(e.getSommet1() == tested_edge.getSommet1() || e.getSommet1() == tested_edge.getSommet2() || e.getSommet2() == tested_edge.getSommet1() || e.getSommet2() == tested_edge.getSommet2()) {
+				dif_nodes.add(e.getSommet1());
+				dif_nodes.add(e.getSommet2());
+			}
+		}
+		if(dif_nodes.contains(edge[0]) && dif_nodes.contains(edge[1]))
+			return true;
+		else
+			return false;
+	}
+	
+	
+	
 }
 

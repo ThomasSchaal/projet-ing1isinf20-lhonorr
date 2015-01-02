@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.Set;
 
 public class Prim {
 
-	public static Result do_Prim(int[][] tab) {
+	public static Result_list do_Prim(int[][] tab) {
 		Set<Integer> dif_nodes = new HashSet<Integer>();
 		List<Integer> checked_node = new LinkedList<Integer>();
 		boolean cycle_found = true;
@@ -71,8 +72,7 @@ public class Prim {
 			//System.out.println("Nombre de sommets : "+dif_nodes.size());
 			//System.out.println(dif_nodes);
 		}
-		System.out.println("Nombre de sommets : "+dif_nodes.size());
-		return new Result(total_weight, result);
+		return new Result_list(total_weight, cleared_graph(result));
 	}
 
 	/**
@@ -164,5 +164,14 @@ public class Prim {
 		for(Integer i : dif_nodes) {
 			l.add(i);
 		}
+	}
+
+	public static List<Edge> cleared_graph(int[][] tab) {
+		List<Edge> ret = new ArrayList<Edge>();
+		for(int i=0; i<tab.length-1; i++) {
+			if(tab[i][0] != 0 && tab[i][1] != 0 && tab[i][2] != 0)
+				ret.add(new Edge(tab[i][0], tab[i][1], tab[i][2]));
+		}
+		return ret;
 	}
 }

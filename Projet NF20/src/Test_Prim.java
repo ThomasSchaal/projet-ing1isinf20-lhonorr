@@ -51,7 +51,7 @@ public class Test_Prim {
 		// Test Prim sur un graph fichier
 		
 		Graph g = new Graph();
-		g.loadFile("C:/Users/Robin/Desktop/Projet NF20/files/inst_v1.txt"); // Chemin de Robin
+		g.loadFile("C:/Users/Robin/Desktop/Projet NF20/files/inst_v13.txt"); // Chemin de Robin
 		//g.loadFile("H:/ISI1/NF20/Projet/inst_v100.dat"); // Chemin de Thomas
 		g.supplyNbNodes();
 		g.supplyMatrice();
