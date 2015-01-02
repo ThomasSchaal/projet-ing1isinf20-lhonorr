@@ -45,11 +45,11 @@ public class CycleElimination {
 
 				// On récupere l'arête minimale de la liste des sommets à check via la méthode look_neightbourList
 				minimal_node = CycleElimination.look_neighbourtabList(tab, checked_node, dif_nodes);
-				System.out.println("Noeud minimum trouvé : "+minimal_node[0]+ "\t" + minimal_node[1] + "\t" +minimal_node[2]);
+				//System.out.println("Noeud minimum trouvé : "+minimal_node[0]+ "\t" + minimal_node[1] + "\t" +minimal_node[2]);
 
 				// Si l'arête forme un cycle, on vérifie que son poids est inférieur à celui du chemin du sommet de départ au sommet de destination
 				if(!checkCycle(dif_nodes, minimal_node)) {
-					System.out.println("Cycle trouvée !");
+					//System.out.println("Cycle trouvée !");
 					int dep_node = 0;
 
 					if(minimal_node[0] == checked_node)
@@ -59,11 +59,10 @@ public class CycleElimination {
 
 					Result_weight rw = checkWeightCycle(result, minimal_node, dep_node, checked_node);
 
-					System.out.println(rw.isDelete());
+					//System.out.println(rw.isDelete());
 
 					// On regarde le boolean delete du resultat et on supprime l'arête si false
 					if(rw.isDelete()) {
-						System.out.println("On supprime l'arrête position : "+rw.getIndice());
 						result.remove(rw.getIndice());
 						minimal_node[0] = rw.getEdges().get(0).getSommet1();
 						minimal_node[1] = rw.getEdges().get(0).getSommet2();
@@ -97,36 +96,36 @@ public class CycleElimination {
 				result.get(iterator).setPoids(minimal_node[2]);
 			}
 
-			System.out.println("Result : "+ result.toString());
+			//System.out.println("Result : "+ result.toString());
 
-			System.out.println(dif_nodes + " | minimal node : " + minimal_node[0] +", " + minimal_node[1]);
+			//System.out.println(dif_nodes + " | minimal node : " + minimal_node[0] +", " + minimal_node[1]);
 			if(next_checked)
 				checked_node = nextCheckedNode(minimal_node, dif_nodes);
 
-			System.out.println("checked node : "+checked_node);
+			//System.out.println("checked node : "+checked_node);
 			dif_nodes.add(minimal_node[0]);
 			dif_nodes.add(minimal_node[1]);
 
-			System.out.println("Noeud conservé : "+result.get(iterator).toString());
+			//System.out.println("Noeud conservé : "+result.get(iterator).toString());
 
 			iterator++;
 
 			//System.out.println("On supprime : "+tab.get(minimal_node[3]).toString());
 			tab.remove(minimal_node[3]);
-			System.out.println("Prochain noeud à vérifier : "+ checked_node);
+			//System.out.println("Prochain noeud à vérifier : "+ checked_node);
 
-			System.out.println("Liste des arêtes arbre couvrant : ");
-			for(Edge e : result) 
-				System.out.println(e.toString());
+			//System.out.println("Liste des arêtes arbre couvrant : ");
+			//for(Edge e : result) 
+			//	System.out.println(e.toString());
 
-			System.out.println("Matrice graphe actuelle ::");
-			for(int i=0; i<tab.size(); i++)
-				System.out.println(tab.get(i));
-			System.out.println();
+			//System.out.println("Matrice graphe actuelle ::");
+			//for(int i=0; i<tab.size(); i++)
+			//	System.out.println(tab.get(i));
+			//System.out.println();
 
 			//System.out.println("Dif node.size : "+dif_nodes.size());
 			//System.out.println("Nb nodes graphes : "+Graph.getNbNodes());
-			//System.out.println("Tab.size : "+ tab.size());
+			System.out.println("Tab.size : "+ tab.size());
 			if(dif_nodes.size() == Graph.getNbNodes() && tab.size() == 1)
 				finished = true;
 		}
@@ -169,7 +168,7 @@ public class CycleElimination {
 					minimum[0] = tab.get(i).getSommet1();
 					minimum[1] = tab.get(i).getSommet2();
 					minimum[2] = tab.get(i).getPoids();
-					System.out.println("Premiere arête trouvée : " +minimum[0] + ", " + minimum[1] + ", " + minimum[2]);
+					//System.out.println("Premiere arête trouvée : " +minimum[0] + ", " + minimum[1] + ", " + minimum[2]);
 					break;
 				}
 			}
@@ -239,8 +238,10 @@ public class CycleElimination {
 	public static Result_weight checkWeightCycle(List<Edge> result, int[] minimal_node, int dep_node, int dest_node) {
 		int[] edge_max = new int[4];
 		int[] edge_read = new int[4];
+		int[] max_weight_node = new int[4];
 		int checked_node = dep_node;
 		int max_weight = -1;
+		int max_weight_total = -1;
 		boolean cycle_finished = false;
 		List<Edge> result_tmp = new LinkedList<>();
 		List<Edge> edge_return =  new LinkedList<>();
@@ -252,12 +253,12 @@ public class CycleElimination {
 
 		while(!cycle_finished && result_tmp.size() != 0) {
 			int i = 0;
-			System.out.println("Petit tour ! ");
-			System.out.println("Arbre couvrant actuel : ");
-			for(Edge e : result_tmp )
-				System.out.println(e.toString());
+			//System.out.println("Petit tour ! ");
+			//System.out.println("Arbre couvrant actuel : ");
+			//for(Edge e : result_tmp )
+			//	System.out.println(e.toString());
 
-			System.out.println("Noeud de départ : "+checked_node);
+			//System.out.println("Noeud de départ : "+checked_node);
 
 			for(int k = 0; k < result_tmp.size() -1; k++) {
 				//	System.out.println("Tour : "+ k);
@@ -268,8 +269,8 @@ public class CycleElimination {
 				edge_read[2] = result_tmp.get(k).getPoids();
 				edge_read[3] = k;
 
-				System.out.println("On lit l'arête : "+result_tmp.get(k).toString());
-				System.out.println("Noeud checké : "+checked_node);
+				//System.out.println("On lit l'arête : "+result_tmp.get(k).toString());
+				//System.out.println("Noeud checké : "+checked_node);
 				// Si le noeud est présent dans une arête du chemin et que le poids maximal n'est pas initialisé
 				if( (result_tmp.get(k).getSommet1() == checked_node || result_tmp.get(k).getSommet2() == checked_node) && max_weight == -1) {
 					edge_max[0] = result_tmp.get(k).getSommet1();
@@ -293,20 +294,19 @@ public class CycleElimination {
 
 
 				//System.out.println("Dep : "+dep_node + " | edge_read[0] : "+edge_read[0] + "| edge_read[1] : "+edge_read[1]);
-				System.out.println("Noeud checké : : "+checked_node);
+				//System.out.println("Noeud checké : : "+checked_node);
 				if(edge_read[0] == dep_node)
 					checked_node = edge_read[1];
 				else
 					checked_node = edge_read[0];
 				dep_node = checked_node;
 
-				System.out.println("Noeud à check : "+checked_node);
+				//System.out.println("Noeud à check : "+checked_node);
 
-				
-				System.out.println("Passage 3");
-				System.out.println("poids trouvé : "+edge_read[2] +" > poids max : "+edge_max[2]);
-				if(edge_read[0] == checked_node || edge_read[1] == checked_node && edge_read[2] > edge_max[2]) {
-					System.out.println("Condition ok !");
+
+				//System.out.println("Passage 3");
+				//System.out.println("poids trouvé : "+edge_read[2] +" > poids max : "+edge_max[2]);
+				if(edge_read[0] == checked_node || edge_read[1] == checked_node && edge_read[2] > edge_max[2] && edge_max[2] > max_weight) {
 					edge_max[0] = edge_read[0];
 					edge_max[1] = edge_read[1];
 					edge_max[2] = edge_read[2];
@@ -314,7 +314,7 @@ public class CycleElimination {
 				}
 
 			}
-			
+
 
 
 			max_weight = edge_max[2];
@@ -322,16 +322,35 @@ public class CycleElimination {
 			//System.out.println("Arête trouvée : "+ edge_read[0] +"\t"+edge_read[1]+"\t"+edge_read[2]);
 			//max_weight = edge_max[2];
 
-			System.out.println("Arête maximale : "+ edge_max[0] +"\t"+edge_max[1]+"\t"+edge_max[2]);
-			System.out.println("Arête trouvée : "+ edge_read[0] +"\t"+edge_read[1]+"\t"+edge_read[2]);
+			//System.out.println("Arête maximale : "+ edge_max[0] +"\t"+edge_max[1]+"\t"+edge_max[2]);
+			//System.out.println("Arête trouvée : "+ edge_read[0] +"\t"+edge_read[1]+"\t"+edge_read[2]);
 
 			//max_weight = edge_max[2];
 
-			System.out.println("Poids de l'arête maximale : "+max_weight);
+			// Comparaison du poids le plus gros
+			if(max_weight_total == -1) {
+				max_weight_node[0] = edge_max[0];
+				max_weight_node[1] = edge_max[1];
+				max_weight_node[2] = edge_max[2];
+				max_weight_node[3] = edge_max[3];
+				//System.out.println("position de max_weight_node : "+ max_weight_node[3]);
+				max_weight_total = max_weight;
+
+			}
+
+			else if(max_weight > max_weight_total) {
+				max_weight_total = max_weight;
+				max_weight_node[0] = edge_max[0];
+				max_weight_node[1] = edge_max[1];
+				max_weight_node[2] = edge_max[2];
+				max_weight_node[3] = edge_max[3];
+			}
+
+			//System.out.println("Poids de l'arête maximale : "+max_weight_node[2]);
 
 			// Si l'arête trouvée contient le noeud de destination, on sort de la boucle
 			if(edge_read[0] == dest_node || edge_read[1] == dest_node) {
-				System.out.println("Chemin terminé !");
+				//System.out.println("Chemin terminé !");
 				cycle_finished = true;
 			}
 
@@ -355,23 +374,30 @@ public class CycleElimination {
 			for(int j=0; j != result.size(); j++) {
 				//System.out.println("Arête result : "+result.get(j).toString());
 				//System.out.println("Arête tmp : "+result_tmp.get(edge_max[3]).toString());
-				if(result.get(j).equals(result_tmp.get(edge_max[3]))) {
+				//System.out.println("position  : "+max_weight_node[3]);
+				//System.out.println("Arête de result : "+result.get(j).equals(result_tmp.get(max_weight_node[3])));
+				//System.out.println("Arête result_tmp : "+result_tmp.get(edge_max[3]));
+				if(result.get(j).equals(result_tmp.get(max_weight_node[3]))) {
 					index_delete = j;
 					//System.out.println("j : "+j);
 				}
 
 			}
 
+			//System.out.println("FINAL position de max_weight_node : "+ max_weight_node[3]);
+			//System.out.println("Arête maximal à enlever : "+ max_weight_node[0] +"\t"+max_weight_node[1]+"\t"+max_weight_node[2]);
 			//index_delete = edge1[3];
-			result_tmp.remove(edge_max[3]);
+
+			//System.out.println("On supprime dans result_tmp : "+max_weight_node[0] +"\t"+max_weight_node[1]+"\t"+max_weight_node[2]);
+			//result_tmp.remove(max_weight_node[3]);
 
 			//System.out.println("Index a supprimer : "+ index_delete);
 			//System.out.println();
 		}
 
 		// Si le poids de l'arête est inférieur a celui du chemin, on retourne 'vrai, position_edge_a_delete, nouveau_edge'
-		//System.out.println(minimal_node[2] + " < " + max_weight);
-		if(minimal_node[2] < max_weight) {
+		//System.out.println(minimal_node[2] + " < " + max_weight_total);
+		if(minimal_node[2] < max_weight_total) {
 			edge_return.add(new Edge(minimal_node[0], minimal_node[1],minimal_node[2]));
 			return new Result_weight(true, index_delete, edge_return);
 		}
