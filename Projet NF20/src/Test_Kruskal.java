@@ -4,7 +4,7 @@
 public class Test_Kruskal {
 
 	/**
-	 * Retourne 132
+	 * Retourne 133
 	 * Pas encore validé completement  
 	 * @param args
 	 */
@@ -19,8 +19,8 @@ public class Test_Kruskal {
 		// Test lecture fichier valide (n'oubliez pas de le changer et mettre un
 		// chemin valide !)
 		// a.loadFile("C:/Users/Robin/Desktop/Projet NF20/files/inst_v100.dat");
-		//a.loadFile("H:/ISI1/NF20/Projet/inst_v100.dat");
-		a.loadFile("C:/Users/Robin/Desktop/Projet NF20/files/inst_v10.txt"); // Chemin de Robin
+		a.loadFile("H:/ISI1/NF20/Projet/inst_v100.dat"); // Chemin de Thomas
+		//a.loadFile("C:/Users/Robin/Desktop/Projet NF20/files/inst_v10.txt"); // Chemin de Robin
 		System.out.println("Lecture du fichier : ");
 		for (String s : a.getReadfile()) {
 			System.out.println(s);
@@ -42,7 +42,6 @@ public class Test_Kruskal {
 
 		// Alimentation de la matrice de l'arbre
 		a.supplyMatrice();
-		Kruskal algo = new Kruskal();
-		System.out.println("Algo Kruskal " +algo.agloKruskal(a));
+		System.out.println(Kruskal.do_Kruksal(a));
 	}
 }
