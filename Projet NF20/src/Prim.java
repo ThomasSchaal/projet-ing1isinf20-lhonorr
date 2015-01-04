@@ -24,6 +24,7 @@ public class Prim {
 		//System.out.println("Nb nodes : "+Graph.getNbNodes());
 		// Tant que le nombre de noeuds de notre graphe résultat n'est pas identique au nombre de noeuds du graphe initial
 		while(totalNbNodes(dif_nodes) != Graph.getNbNodes() ) {
+				
 			//System.out.println("Tour : "+iterator);
 
 			//System.out.println("Iterator : "+ iterator);
