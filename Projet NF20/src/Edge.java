@@ -1,4 +1,8 @@
-
+/**
+ * Classe modélisant une arête en objet
+ * @author Robin
+ *
+ */
 public class Edge {
 
 	private int sommet1;

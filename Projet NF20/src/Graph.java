@@ -32,6 +32,7 @@ public class Graph {
 	 */
 	public boolean loadFile(String filepath) {
 
+		filepath.replace("/", "\\");
 		// Vide la liste de lecture du fichier pour s'assurer qu'elle soit vide
 		readfile.clear();
 
