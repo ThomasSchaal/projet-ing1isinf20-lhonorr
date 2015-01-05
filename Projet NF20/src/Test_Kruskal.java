@@ -42,6 +42,6 @@ public class Test_Kruskal {
 
 		// Alimentation de la matrice de l'arbre
 		a.supplyMatrice();
-		System.out.println(Kruskal.do_Kruksal(a));
+		System.out.println(Kruskal3.do_Kruksal(a));
 	}
 }

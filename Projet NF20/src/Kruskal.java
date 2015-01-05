@@ -27,44 +27,54 @@ public class Kruskal {
 		listList.add(arbre);
 		// arbre de résultat
 		List<Edge> result = new LinkedList<Edge>();
+		long debut = System.currentTimeMillis(), fin;
 
 		/**
 		 * Parcours des arêtes de la matrice d'entrée si l'arbre de sortie est
 		 * vide, on ajoute la première arête en entier si l'arête suivante
 		 * n'ajoute pas de cycle, on l'ajoute a l'arbre
 		 */
-		for (int i = 0; i < matTrie.length; i++) {
-			if (arbre.isEmpty() == true) {
 
+		for (int i = 0; i < matTrie.length; i++) {
+
+			if (arbre.isEmpty() == true) {
 				result.add(new Edge(matTrie[i][0], matTrie[i][1], matTrie[i][2]));
 				arbre.add(matTrie[i][0]);
 				arbre.add(matTrie[i][1]);
-			} else if (checkConnexe(listList, matTrie[i]) == true) {
-				if (checkCycle(arbre, matTrie[i]) == true) {
-					if (checkNotAlreadyExist(arbre, matTrie[i]) == true) {
-						result.add(new Edge(matTrie[i][0], matTrie[i][1],
-								matTrie[i][2]));
-						Set<Integer> newArbre = new HashSet<Integer>();
-						newArbre.add(matTrie[i][0]);
-						newArbre.add(matTrie[i][1]);
-						listList.add(newArbre);
-					} else {
+				listList.add(arbre);
+			}
+
+			else {
+
+				if (isConnected(listList, new Edge(matTrie[i][0],
+						matTrie[i][1], matTrie[i][2]))) {
+
+					if (checkCycle(arbre, matTrie[i])) {
 						result.add(new Edge(matTrie[i][0], matTrie[i][1],
 								matTrie[i][2]));
 						arbre.add(matTrie[i][0]);
 						arbre.add(matTrie[i][1]);
 					}
+				} else if (checkCycle(arbre, matTrie[i])) {
+					result.add(new Edge(matTrie[i][0], matTrie[i][1],
+							matTrie[i][2]));
+					Set<Integer> newArbre = new HashSet<Integer>();
+					newArbre.add(matTrie[i][0]);
+					newArbre.add(matTrie[i][1]);
+					listList.add(newArbre);
 				}
-				for (int j = 1; j < listList.size(); j++) {
-					fusionArbre(arbre, listList.get(j));
-				}
+
 			}
+
 		}
+
 		/**
-		 * Coût total de l'arbre
+		 * Coût total du MST
 		 */
 		cout = getWeight(result);
 
+		fin = System.currentTimeMillis()-debut;
+		System.out.println("Temps d'exécution : "+fin +" ms");
 		return new Result_list(cout, result);
 	}
 
@@ -81,18 +91,6 @@ public class Kruskal {
 			return false;
 		else
 			return true;
-	}
-
-	public static boolean checkConnexe(LinkedList<Set<Integer>> list, int[] t) {
-		//Iterator<Set<Integer>> it = list.iterator();
-		boolean cycle = true;
-		for (Set<Integer> s : list) {
-			if (s.contains(t[0]) || s.contains(t[1]))
-				cycle = true;
-			else
-				cycle = false;
-		}
-		return cycle;
 	}
 
 	/**
@@ -141,4 +139,14 @@ public class Kruskal {
 			total_weight += e.getPoids();
 		return total_weight;
 	}
+
+	public static boolean isConnected(LinkedList<Set<Integer>> list, Edge edge) {
+		boolean connexion_found = false;
+		for (Set<Integer> s : list) {
+			if (s.contains(edge.getSommet1()) || s.contains(edge.getSommet2()))
+				connexion_found = true;
+		}
+		return connexion_found;
+	}
+
 }
