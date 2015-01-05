@@ -42,7 +42,7 @@ public class Appli_algo {
 				break;
 			case "2" :
 				System.out.println("Algorithme de Kruskal : ");
-				System.out.println("THOMAS");
+				System.out.println(Kruskal.do_Kruksal(g));
 				break;
 			case "3" :
 				System.out.println("Algorithme de l'Elimination de Cycle : ");
