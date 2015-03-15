@@ -1,0 +1,1 @@
+Pikachu lance attaque éclair !
